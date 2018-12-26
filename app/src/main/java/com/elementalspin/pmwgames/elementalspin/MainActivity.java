@@ -16,6 +16,8 @@ public class MainActivity extends AGActivityGame {
 
         criaCenas();
 
+        //TESTE BY RAFAEL
+
         adicionaCenas();
 
     }
