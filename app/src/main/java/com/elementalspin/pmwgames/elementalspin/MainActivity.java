@@ -25,7 +25,7 @@ public class MainActivity extends AGActivityGame {
 
     private void criaCenas() {
         //método responsável por instanciar as cenas
-        this.cena_menu = new CenaMenu(this.getGameManager());
+        this.cena_menu = new CenaMenu(this.getGameManager(), this);
 
     }
 

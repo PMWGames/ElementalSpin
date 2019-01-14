@@ -10,6 +10,13 @@ package com.elementalspin.pmwgames.elementalspin.AndGraph;
 
 //Used Packages
 
+import android.content.Context;
+import android.graphics.Point;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
+
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 
@@ -262,6 +269,37 @@ public class AGSprite
 		
 		vrScale.fX = (fPercentX / iFrameWidth) / 2;
 		vrScale.fY = (fPercentY / iFrameHeight) / 2;
+	}
+
+	public void setScreenProportional(Context context, int size){
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point sizeS = new Point();
+        display.getSize(sizeS);
+        int width = sizeS.x;
+        int height = sizeS.y;
+
+        if(iImageHeight > iImageWidth) {
+
+            float screenPer = ((100- ((width * 100)/height))/100) + 1;
+
+            float sizeW = ((size * 100f) / width);
+            float sizeH = ((size * 100f) / height) * screenPer;
+
+            setScreenPercent((int) (sizeW - ( ( (sizeW *((100- ((width * 100)/height)))) ) / 100 ) /2), (int) sizeH);
+
+        } else {
+
+            float screenPer = ((100- ((height * 100)/width))/100) + 1;
+
+            float sizeW = ((size * 100f) / width)* screenPer;
+            float sizeH = ((size * 100f) / height);
+
+            setScreenPercent((int) sizeW, (int) (sizeH - ( ( (sizeH *((100- ((width * 100)/height)))) ) / 100 ) /2));
+
+        }
+
 	}
 	
 	/*******************************************

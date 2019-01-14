@@ -49,7 +49,7 @@ public class AGText {
                        // this.lst_pixels.get(i) = this.scene.createSprite(this.cod_image, 1, 1);
                         this.lst_pixels.get(i).setScreenPercent(this.size, this.size);
                         this.lst_pixels.get(i).vrPosition.setY(this.pos_y);
-                        this.lst_pixels.get(i).vrPosition.setX();
+                      //  this.lst_pixels.get(i).vrPosition.setX();
                     }
 
                 }
