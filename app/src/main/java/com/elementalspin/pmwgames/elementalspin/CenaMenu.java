@@ -40,7 +40,8 @@ public class CenaMenu extends AGScene {
         //fundo
         background = createSprite(R.mipmap.backgroud, 1, 1);
 
-        background.setScreenPercent( 100, 100);
+       // background.setScreenPercent( 100, 100);
+        background.setScreenProportional(context, AGScreenManager.iScreenHeight);
 
         background.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 2);
 
