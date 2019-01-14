@@ -13,7 +13,7 @@ public class CenaMenu extends AGScene {
 
     AGSprite background = null;
     AGSprite logo = null;
-    AGSprite button = null;
+    AGSprite play_button = null;
 
     public CenaMenu(AGGameManager pManager) {
 
@@ -30,11 +30,28 @@ public class CenaMenu extends AGScene {
 //        this.bg.vrPosition.setX(AGScreenManager.iScreenWidth / 2);
 //        this.bg.vrPosition.setY(AGScreenManager.iScreenHeight / 2);
 
+
+        //fundo
         background = createSprite(R.mipmap.backgroud, 1, 1);
 
         background.setScreenPercent( 100, 100);
 
         background.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 2);
+
+        //logo
+        logo = createSprite(R.mipmap.dragon, 1, 1);
+
+        logo.setScreenPercent(70, 60);
+
+        logo.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 1.5f);
+
+        //logo
+        play_button = createSprite(R.mipmap.play_button, 1, 1);
+
+        play_button.setScreenPercent(25, 8);
+
+        play_button.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 4f);
+
     }
 
     @Override
