@@ -56,16 +56,10 @@ public class CenaMenu extends AGScene {
 
         background.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 2);
 
-        //flor
-        flor = createSprite(R.mipmap.flor, 1, 1);
-
-        flor.setScreenProportional(context, AGScreenManager.iScreenHeight / 15);
-
-//        flor.vrPosition.setXY(AGScreenManager.iScreenWidth / 2.9f, AGScreenManager.iScreenHeight / 1.2f);
 
         nova_flor();
-//        nova_flor();
-//        nova_flor();
+        nova_flor();
+        nova_flor();
 
         //logo
         logo = createSprite(R.mipmap.dragon, 1, 1);
@@ -120,13 +114,21 @@ public class CenaMenu extends AGScene {
 
     private void nova_flor()
     {
-        int valor_x = 0;
+
+        //flor
+        flor = createSprite(R.mipmap.flor, 1, 1);
+
+        flor.setScreenProportional(context, AGScreenManager.iScreenHeight / 15);
+
+        int valor_x;
+        int valor_y;
         Random geradorX = new Random();
 
-        valor_x = geradorX.nextInt(200);
+        valor_x = geradorX.nextInt(300);
+        valor_y = AGScreenManager.iScreenHeight + geradorX.nextInt(500); //adicionei esse random para Y para que elas não caiam ela linhas
 
 
-        flor.vrPosition.setXY(valor_x, AGScreenManager.iScreenHeight);
+        flor.vrPosition.setXY(valor_x, valor_y);
         flores.add(flor);
     }
 }
