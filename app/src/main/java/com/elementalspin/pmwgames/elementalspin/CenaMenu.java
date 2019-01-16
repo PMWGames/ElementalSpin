@@ -106,7 +106,7 @@ public class CenaMenu extends AGScene {
             float x, y, rotation;
             x = flores.get(i).vrPosition.getX();
             y = flores.get(i).vrPosition.getY();
-            rotation = flores.get(i).
+//            rotation = flores.get(i).
 
             x = x + velocidade_flor_x;
             y = y - velocidade_flor_y;
