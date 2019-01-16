@@ -9,6 +9,10 @@ import com.elementalspin.pmwgames.elementalspin.AndGraph.AGScene;
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGScreenManager;
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGSprite;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class CenaMenu extends AGScene {
 
 //    private AGSprite bg = null;
@@ -16,8 +20,14 @@ public class CenaMenu extends AGScene {
     private AGSprite background = null;
     private AGSprite logo = null;
     private AGSprite play_button = null;
-    private AGSprite flor = null;
+
     private Context context = null;
+    private List<AGSprite> flores = new ArrayList<AGSprite>();
+    private AGSprite flor = null;
+
+    private float velocidade_flor_x = 2f;
+    private float velocidade_flor_y = 1f;
+    private float velocidade_rotation = 0.05f;
 
     public CenaMenu(AGGameManager pManager, Context context) {
 
@@ -49,10 +59,13 @@ public class CenaMenu extends AGScene {
         //flor
         flor = createSprite(R.mipmap.flor, 1, 1);
 
-        //play_button.setScreenPercent(25, 25);
         flor.setScreenProportional(context, AGScreenManager.iScreenHeight / 15);
 
-        flor.vrPosition.setXY(AGScreenManager.iScreenWidth / 2.9f, AGScreenManager.iScreenHeight / 1.2f);
+//        flor.vrPosition.setXY(AGScreenManager.iScreenWidth / 2.9f, AGScreenManager.iScreenHeight / 1.2f);
+
+        nova_flor();
+//        nova_flor();
+//        nova_flor();
 
         //logo
         logo = createSprite(R.mipmap.dragon, 1, 1);
@@ -86,6 +99,30 @@ public class CenaMenu extends AGScene {
 
     @Override
     public void loop() {
+        for(int i = 0; i < flores.size(); i++)
+        {
+            float x, y, rotation;
+            x = flores.get(i).vrPosition.getX();
+            y = flores.get(i).vrPosition.getY();
+            rotation = flores.get(i).
 
+            x = x + velocidade_flor_x;
+            y = y - velocidade_flor_y;
+
+            flores.get(i).vrPosition.setXY(x, y);
+
+        }
+    }
+
+    private void nova_flor()
+    {
+        int valor_x = 0;
+        Random geradorX = new Random();
+
+        valor_x = geradorX.nextInt(200);
+
+
+        flor.vrPosition.setXY(valor_x, AGScreenManager.iScreenHeight);
+        flores.add(flor);
     }
 }
