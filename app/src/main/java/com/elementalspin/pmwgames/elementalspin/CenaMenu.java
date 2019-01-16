@@ -27,7 +27,7 @@ public class CenaMenu extends AGScene {
 
     private float velocidade_flor_x = 2.5f;
     private float velocidade_flor_y = 3f;
-    private float velocidade_rotation = 0.05f;
+    private float velocidade_rotation = 2.5f;
 
     public CenaMenu(AGGameManager pManager, Context context) {
 
@@ -106,12 +106,14 @@ public class CenaMenu extends AGScene {
             float x, y, rotation;
             x = flores.get(i).vrPosition.getX();
             y = flores.get(i).vrPosition.getY();
-//            rotation = flores.get(i).
+            rotation = flores.get(i).fAngle;
 
             x = x + velocidade_flor_x;
             y = y - velocidade_flor_y;
+            rotation += velocidade_rotation;
 
             flores.get(i).vrPosition.setXY(x, y);
+            flores.get(i).fAngle = rotation;
 
         }
     }
