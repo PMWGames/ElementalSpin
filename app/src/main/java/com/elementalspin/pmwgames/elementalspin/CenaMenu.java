@@ -73,6 +73,8 @@ public class CenaMenu extends AGScene {
         //logo.setScreenPercent(90, 90);
         logo.setScreenProportional(context, AGScreenManager.iScreenHeight / 2);
 
+
+
         logo.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 1.5f);
 
         //botão
