@@ -25,8 +25,8 @@ public class CenaMenu extends AGScene {
     private List<AGSprite> flores = new ArrayList<AGSprite>();
     private AGSprite flor = null;
 
-    private float velocidade_flor_x = 2f;
-    private float velocidade_flor_y = 1f;
+    private float velocidade_flor_x = 2.5f;
+    private float velocidade_flor_y = 3f;
     private float velocidade_rotation = 0.05f;
 
     public CenaMenu(AGGameManager pManager, Context context) {
