@@ -16,6 +16,7 @@ public class CenaMenu extends AGScene {
     private AGSprite background = null;
     private AGSprite logo = null;
     private AGSprite play_button = null;
+    private AGSprite flor = null;
     private Context context = null;
 
     public CenaMenu(AGGameManager pManager, Context context) {
@@ -45,6 +46,14 @@ public class CenaMenu extends AGScene {
 
         background.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 2);
 
+        //flor
+        flor = createSprite(R.mipmap.flor, 1, 1);
+
+        //play_button.setScreenPercent(25, 25);
+        flor.setScreenProportional(context, AGScreenManager.iScreenHeight / 15);
+
+        flor.vrPosition.setXY(AGScreenManager.iScreenWidth / 2.9f, AGScreenManager.iScreenHeight / 1.2f);
+
         //logo
         logo = createSprite(R.mipmap.dragon, 1, 1);
 
@@ -62,6 +71,8 @@ public class CenaMenu extends AGScene {
         play_button.setScreenProportional(context, AGScreenManager.iScreenHeight / 8);
 
         play_button.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 4f);
+
+
 
     }
 
