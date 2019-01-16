@@ -25,7 +25,7 @@ import javax.microedition.khronos.opengles.GL10;
 public class AGSprite 
 {
 	//Constants of the class
-	public static final int NONE = 0, HORIZONTAL = 1, VERTICAL = 2, VERTICAL_HORIZONTAL = 3;
+	public static final int NONE = 0, HORIZONTAL = 1, VERTICAL = 2, VERTICAL_HORIZONTAL = 3, CLOCKWISE = 1, COUNTER_CLOCKWISE = -1;
 	
 	//Public attributes
 	public AGVector2D vrDirection = null;
@@ -38,6 +38,7 @@ public class AGSprite
 	public boolean bVisible = true;
 	public boolean bRecycled = false;
 	public boolean bAutoRender = true;
+	public int iRotationDirection = CLOCKWISE;
 	
 	//Private attributes
 	private ArrayList<AGAnimation> vetAnimations = null;
@@ -280,6 +281,8 @@ public class AGSprite
         int width = sizeS.x;
         int height = sizeS.y;
 
+        float div = 1.3f;
+
         if(iImageHeight > iImageWidth) {
 
             float screenPer = ((100- ((width * 100)/height))/100) + 1;
@@ -287,17 +290,25 @@ public class AGSprite
             float sizeW = ((size * 100f) / width);
             float sizeH = ((size * 100f) / height) * screenPer;
 
-            setScreenPercent((int) (sizeW - ( ( (sizeW *((100- ((width * 100)/height)))) ) / 100 ) /2), (int) sizeH);
+            sizeW = (sizeW - ( ( (sizeW *((100- ((width * 100)/height)))) ) / 100 ) /div);
 
-        } else {
+            setScreenPercent((int) sizeW, (int) sizeH);
+
+        } else if (iImageHeight < iImageWidth) {
 
             float screenPer = ((100- ((height * 100)/width))/100) + 1;
 
             float sizeW = ((size * 100f) / width)* screenPer;
             float sizeH = ((size * 100f) / height);
 
-            setScreenPercent((int) sizeW, (int) (sizeH - ( ( (sizeH *((100- ((width * 100)/height)))) ) / 100 ) /2));
+            sizeH = (sizeH - ( ( (sizeH *((100- ((width * 100)/height)))) ) / 100 ) /div);
 
+            setScreenPercent((int) sizeW, (int) sizeH);
+
+        } else {
+            float sizeW = ((size * 100f) / width);
+            float sizeH = ((size * 100f) / height);
+            setScreenPercent((int) sizeW, (int) sizeH);
         }
 
 	}

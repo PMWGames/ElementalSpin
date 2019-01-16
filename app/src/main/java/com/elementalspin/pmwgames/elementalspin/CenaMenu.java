@@ -3,6 +3,7 @@ package com.elementalspin.pmwgames.elementalspin;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGGameManager;
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGScene;
@@ -60,6 +61,11 @@ public class CenaMenu extends AGScene {
         nova_flor();
         nova_flor();
         nova_flor();
+        nova_flor();
+        nova_flor();
+        nova_flor();
+        nova_flor();
+        nova_flor();
 
         //logo
         logo = createSprite(R.mipmap.dragon, 1, 1);
@@ -104,10 +110,24 @@ public class CenaMenu extends AGScene {
 
             x = x + velocidade_flor_x;
             y = y - velocidade_flor_y;
-            rotation += velocidade_rotation;
+
+            //verifica qual rotação da flor e aumenta ou decrementa º
+            if(flores.get(i).iRotationDirection == AGSprite.CLOCKWISE) {
+                rotation += velocidade_rotation;
+            } else {
+                rotation -= velocidade_rotation;
+            }
 
             flores.get(i).vrPosition.setXY(x, y);
             flores.get(i).fAngle = rotation;
+
+            //Verifica se a flor ultrapassa os limites da tela, se sim, reposiciona ela no topo para cair novamente
+            if( x > (AGScreenManager.iScreenWidth + AGScreenManager.iScreenHeight / 15 ) ||
+                y < -(AGScreenManager.iScreenHeight / 15)){
+
+                reposiciona_flor(flores.get(i));
+
+            }
 
         }
     }
@@ -118,17 +138,50 @@ public class CenaMenu extends AGScene {
         //flor
         flor = createSprite(R.mipmap.flor, 1, 1);
 
-        flor.setScreenProportional(context, AGScreenManager.iScreenHeight / 15);
+        flor.setScreenProportional(context, AGScreenManager.iScreenHeight / 20);
 
         int valor_x;
         int valor_y;
+        boolean valor_direction;
         Random geradorX = new Random();
 
-        valor_x = geradorX.nextInt(300);
-        valor_y = AGScreenManager.iScreenHeight + geradorX.nextInt(500); //adicionei esse random para Y para que elas não caiam ela linhas
+        valor_x = geradorX.nextInt(AGScreenManager.iScreenWidth / 2 + (AGScreenManager.iScreenWidth/4));
+        valor_y = AGScreenManager.iScreenHeight + geradorX.nextInt(1000); //adicionei esse random para Y para que elas não caiam ela linhas
 
+        //este código serve para sorte a direção de rotação da flor, horário ou anti-horário
+        valor_direction = geradorX.nextBoolean();
+        if(valor_direction){
+            flor.iRotationDirection = AGSprite.CLOCKWISE;
+        } else {
+            flor.iRotationDirection = AGSprite.COUNTER_CLOCKWISE;
+        }
 
         flor.vrPosition.setXY(valor_x, valor_y);
         flores.add(flor);
+
     }
+
+    //este método reposiciona uma flor para cair novamente
+    private void reposiciona_flor(AGSprite flor){
+
+        int valor_x;
+        int valor_y;
+        boolean valor_direction;
+        Random geradorX = new Random();
+
+        valor_x = geradorX.nextInt(AGScreenManager.iScreenWidth / 2 + (AGScreenManager.iScreenWidth/4));
+        valor_y = AGScreenManager.iScreenHeight + geradorX.nextInt(1000); //adicionei esse random para Y para que elas não caiam ela linhas
+
+        //este código serve para sorte a direção de rotação da flor, horário ou anti-horário
+        valor_direction = geradorX.nextBoolean();
+        if(valor_direction){
+            flor.iRotationDirection = AGSprite.CLOCKWISE;
+        } else {
+            flor.iRotationDirection = AGSprite.COUNTER_CLOCKWISE;
+        }
+
+        flor.vrPosition.setXY(valor_x, valor_y);
+
+    }
+
 }
