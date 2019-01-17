@@ -84,7 +84,7 @@ public class CenaMenu extends AGScene {
         play_button.setScreenProportional(context, AGScreenManager.iScreenHeight / 5);
 
         play_button.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 4f);
-        play_button.addAnimation(4, true, 0, 2);
+        play_button.addAnimation(5, true, 0, 4);
 
 
     }
