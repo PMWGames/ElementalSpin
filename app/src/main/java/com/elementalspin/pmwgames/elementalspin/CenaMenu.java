@@ -145,7 +145,7 @@ public class CenaMenu extends AGScene {
         boolean valor_direction;
         Random geradorX = new Random();
 
-        valor_x = geradorX.nextInt(AGScreenManager.iScreenWidth / 2 + (AGScreenManager.iScreenWidth/4));
+        valor_x = geradorX.nextInt(AGScreenManager.iScreenWidth / 2 + (AGScreenManager.iScreenWidth/4)) - (AGScreenManager.iScreenWidth/4);
         valor_y = AGScreenManager.iScreenHeight + geradorX.nextInt(1000); //adicionei esse random para Y para que elas não caiam ela linhas
 
         //este código serve para sorte a direção de rotação da flor, horário ou anti-horário
@@ -169,7 +169,7 @@ public class CenaMenu extends AGScene {
         boolean valor_direction;
         Random geradorX = new Random();
 
-        valor_x = geradorX.nextInt(AGScreenManager.iScreenWidth / 2 + (AGScreenManager.iScreenWidth/4));
+        valor_x = geradorX.nextInt(AGScreenManager.iScreenWidth / 2 + (AGScreenManager.iScreenWidth/4)) - (AGScreenManager.iScreenWidth/4);
         valor_y = AGScreenManager.iScreenHeight + geradorX.nextInt(1000); //adicionei esse random para Y para que elas não caiam ela linhas
 
         //este código serve para sorte a direção de rotação da flor, horário ou anti-horário
