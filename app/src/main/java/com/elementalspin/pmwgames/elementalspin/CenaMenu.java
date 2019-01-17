@@ -28,7 +28,7 @@ public class CenaMenu extends AGScene {
 
     private float velocidade_flor_x = 2.5f;
     private float velocidade_flor_y = 3f;
-    private float velocidade_rotation = 2.5f;
+    private float velocidade_rotation = 1f;
 
     public CenaMenu(AGGameManager pManager, Context context) {
 
@@ -78,13 +78,13 @@ public class CenaMenu extends AGScene {
         logo.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 1.5f);
 
         //botão
-        play_button = createSprite(R.mipmap.play_button, 1, 1);
+        play_button = createSprite(R.mipmap.play_button, 3, 1);
 
         //play_button.setScreenPercent(25, 25);
-        play_button.setScreenProportional(context, AGScreenManager.iScreenHeight / 8);
+        play_button.setScreenProportional(context, AGScreenManager.iScreenHeight / 5);
 
         play_button.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 4f);
-
+        play_button.addAnimation(4, true, 0, 2);
 
 
     }
@@ -138,7 +138,7 @@ public class CenaMenu extends AGScene {
         //flor
         flor = createSprite(R.mipmap.flor, 1, 1);
 
-        flor.setScreenProportional(context, AGScreenManager.iScreenHeight / 20);
+        flor.setScreenProportional(context, AGScreenManager.iScreenHeight / 28);
 
         int valor_x;
         int valor_y;
