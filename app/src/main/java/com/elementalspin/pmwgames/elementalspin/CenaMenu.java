@@ -85,13 +85,13 @@ public class CenaMenu extends AGScene {
         logo.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 1.5f);
 
         //botão
-        play_button = createSprite(R.mipmap.play_button, 4, 4);
+        play_button = createSprite(R.mipmap.play_button, 5, 5);
 
         //play_button.setScreenPercent(25, 8);
         play_button.setScreenProportional(context, AGScreenManager.iScreenHeight / 6);
 
         play_button.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 4f);
-        play_button.addAnimation(12, true, 0, 15);
+        play_button.addAnimation(12, true, 0, 24);
 
 
     }
