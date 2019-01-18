@@ -63,9 +63,7 @@ public class AGSprite
 	private boolean bIsFadeOut = false;
 	private int iTextureCode = 0;
 	private int iCurrentFrame = 0;
-	public int pista;
-	public boolean isAsteroide;
-	public float speed;
+	private float r = 1f, g = 1f, b = 1f;
 	
 	
 	/*******************************************
@@ -96,6 +94,9 @@ public class AGSprite
 		vrMoveTimer.restart(0);
 		vrFadeTimer.restart(0);
 		generateFrames();
+		this.r = 1f;
+		this.g = 1f;
+		this.b = 1f;
 	}
 	
 	/*******************************************
@@ -150,6 +151,13 @@ public class AGSprite
 		vrOpenGL = pOpenGL;
 		iTextureCode = AGTextureManager.loadTexture(vrOpenGL, iImageCode);
 	}
+
+	public void setColor(float r, float g, float b, float a){
+	    this.r = r;
+	    this.g = g;
+	    this.b = b;
+	    this.fAlpha = a;
+    }
 	
 	/*******************************************
 	* Name: generateFrames()
@@ -272,14 +280,10 @@ public class AGSprite
 		vrScale.fY = (fPercentY / iFrameHeight) / 2;
 	}
 
-	public void setScreenProportional(Context context, int size){
+	public void setScreenProportional(int size){
 
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point sizeS = new Point();
-        display.getSize(sizeS);
-        int width = sizeS.x;
-        int height = sizeS.y;
+        int width = AGScreenManager.iScreenWidth;
+        int height = AGScreenManager.iScreenHeight;
 
         float div = 1.3f;
 
@@ -655,7 +659,7 @@ public class AGSprite
 		//Sign texture and call OpenGL draw methods
 		vrOpenGL.glBindTexture(GL10.GL_TEXTURE_2D, iTextureCode);
 		vrOpenGL.glLoadIdentity();
-		vrOpenGL.glColor4f(1.0f, 1.0f, 1.0f, fAlpha);
+		vrOpenGL.glColor4f(this.r, this.g, this.b, this.fAlpha);
 		vrOpenGL.glTranslatef(vrPosition.fX, vrPosition.fY, 0);
 		vrOpenGL.glRotatef(fAngle, 0.0f, 0.0f, 1.0f);
 		vrOpenGL.glScalef(vrScale.fX * iFrameWidth, vrScale.fY * iFrameHeight, 1.0f);

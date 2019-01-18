@@ -2,14 +2,12 @@
 package com.elementalspin.pmwgames.elementalspin;
 
 
-import android.content.Context;
-import android.util.Log;
-
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGGameManager;
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGScene;
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGScreenManager;
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGSoundManager;
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGSprite;
+import com.elementalspin.pmwgames.elementalspin.AndGraph.AGText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +21,6 @@ public class CenaMenu extends AGScene {
     private AGSprite logo = null;
     private AGSprite play_button = null;
 
-    private Context context = null;
     private List<AGSprite> flores = new ArrayList<AGSprite>();
     private AGSprite flor = null;
 
@@ -33,11 +30,9 @@ public class CenaMenu extends AGScene {
 
     int codigoSom;
 
-    public CenaMenu(AGGameManager pManager, Context context) {
+    public CenaMenu(AGGameManager pManager) {
 
         super(pManager);
-
-        this.context = context;
 
     }
 
@@ -60,7 +55,7 @@ public class CenaMenu extends AGScene {
         background = createSprite(R.mipmap.backgroud, 1, 1);
 
        // background.setScreenPercent( 100, 100);
-        background.setScreenProportional(context, AGScreenManager.iScreenHeight);
+        background.setScreenProportional(AGScreenManager.iScreenHeight);
 
         background.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 2);
 
@@ -78,7 +73,7 @@ public class CenaMenu extends AGScene {
         logo = createSprite(R.mipmap.dragon, 1, 1);
 
         //logo.setScreenPercent(90, 90);
-        logo.setScreenProportional(context, (int) (AGScreenManager.iScreenHeight / 1.5f));
+        logo.setScreenProportional((int) (AGScreenManager.iScreenHeight / 1.5f));
 
 
 
@@ -87,11 +82,16 @@ public class CenaMenu extends AGScene {
         //botão
         play_button = createSprite(R.mipmap.play_button, 5, 5);
 
-        //play_button.setScreenPercent(25, 8);
-        play_button.setScreenProportional(context, AGScreenManager.iScreenHeight / 6);
+        play_button.setScreenPercent(29, 10);
+        //play_button.setScreenProportional(context, AGScreenManager.iScreenHeight / 6);
 
         play_button.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 4f);
         play_button.addAnimation(12, true, 0, 24);
+
+        AGText txt = new AGText(this, R.drawable.pixel);
+        txt.setTextPosXY(100, 200);
+        txt.setTextColor(1, 1, 1, 1);
+        txt.setText("oi jujuba");
 
 
     }
@@ -145,7 +145,7 @@ public class CenaMenu extends AGScene {
         //flor
         flor = createSprite(R.mipmap.flor, 1, 1);
 
-        flor.setScreenProportional(context, AGScreenManager.iScreenHeight / 28);
+        flor.setScreenProportional(AGScreenManager.iScreenHeight / 28);
 
         int valor_x;
         int valor_y;
