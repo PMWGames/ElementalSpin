@@ -71,7 +71,7 @@ public class CenaMenu extends AGScene {
         logo = createSprite(R.mipmap.dragon, 1, 1);
 
         //logo.setScreenPercent(90, 90);
-        logo.setScreenProportional(context, AGScreenManager.iScreenHeight / 2);
+        logo.setScreenProportional(context, (int) (AGScreenManager.iScreenHeight / 1.5f));
 
 
 
