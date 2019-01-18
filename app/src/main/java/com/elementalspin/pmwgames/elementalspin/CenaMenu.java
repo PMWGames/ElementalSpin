@@ -8,6 +8,7 @@ import android.util.Log;
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGGameManager;
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGScene;
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGScreenManager;
+import com.elementalspin.pmwgames.elementalspin.AndGraph.AGSoundManager;
 import com.elementalspin.pmwgames.elementalspin.AndGraph.AGSprite;
 
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class CenaMenu extends AGScene {
     private float velocidade_flor_y = 3f;
     private float velocidade_rotation = 1f;
 
+    int codigoSom;
+
     public CenaMenu(AGGameManager pManager, Context context) {
 
         super(pManager);
@@ -47,6 +50,10 @@ public class CenaMenu extends AGScene {
 //        this.bg.vrPosition.setX(AGScreenManager.iScreenWidth / 2);
 //        this.bg.vrPosition.setY(AGScreenManager.iScreenHeight / 2);
 
+        AGSoundManager.vrMusic.loadMusic("the_great.mp3", true);
+        AGSoundManager.vrMusic.play();
+
+//        codigoSom = AGSoundManager.vrSoundEffects.loadSoundEffect("toc.wav");
 
 
         //fundo
@@ -81,7 +88,7 @@ public class CenaMenu extends AGScene {
         play_button = createSprite(R.mipmap.play_button, 4, 4);
 
         //play_button.setScreenPercent(25, 8);
-        play_button.setScreenProportional(context, AGScreenManager.iScreenHeight / 7);
+        play_button.setScreenProportional(context, AGScreenManager.iScreenHeight / 6);
 
         play_button.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 4f);
         play_button.addAnimation(12, true, 0, 15);
