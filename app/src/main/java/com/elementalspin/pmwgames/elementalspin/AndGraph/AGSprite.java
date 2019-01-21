@@ -53,7 +53,6 @@ public class AGSprite
 	private float fCoordX2 = 0;
 	private float fCoordY2 = 0;
 	private float fFadeTo = 0;
-	private float pixel_scale_size = 0;
 	private FloatBuffer[][] vetTextures = null;
 	private float[] vetCoords = null;
 	private GL10 vrOpenGL = null;
@@ -98,7 +97,6 @@ public class AGSprite
 		this.r = 1f;
 		this.g = 1f;
 		this.b = 1f;
-		this.pixel_scale_size = 0;
 	}
 	
 	/*******************************************
@@ -337,14 +335,6 @@ public class AGSprite
 			fAlpha = pFadeTo;
 		}
 	}
-
-	public void setPixelScaleSize(float size){
-	    this.pixel_scale_size = size;
-    }
-
-    public float getPixelScaleSize(){
-	    return this.pixel_scale_size;
-    }
 	
 	/***********************************************************
 	*Name: FadeOut()
@@ -672,11 +662,7 @@ public class AGSprite
 		vrOpenGL.glColor4f(this.r, this.g, this.b, this.fAlpha);
 		vrOpenGL.glTranslatef(vrPosition.fX, vrPosition.fY, 0);
 		vrOpenGL.glRotatef(fAngle, 0.0f, 0.0f, 1.0f);
-		if(this.pixel_scale_size > 0){
-			vrOpenGL.glScalef(this.pixel_scale_size, this.pixel_scale_size, 1.0f);
-		}else {
-			vrOpenGL.glScalef(vrScale.fX * iFrameWidth, vrScale.fY * iFrameHeight, 1.0f);
-		}
+		vrOpenGL.glScalef(vrScale.fX * iFrameWidth, vrScale.fY * iFrameHeight, 1.0f);
 		vrOpenGL.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
 	}
 	
