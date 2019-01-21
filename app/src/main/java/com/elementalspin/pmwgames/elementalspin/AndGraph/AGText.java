@@ -1,6 +1,7 @@
 package com.elementalspin.pmwgames.elementalspin.AndGraph;
 
-import java.lang.reflect.Array;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class AGText {
@@ -11,6 +12,7 @@ public class AGText {
     private ArrayList<AGLetter> letters = null;
     private float r, g, b, a;
     private float pos_x, pos_y;
+    private float size;
 
     public AGText(AGScene scene, int cod_imagem) {
         this.scene = scene;
@@ -21,6 +23,7 @@ public class AGText {
         this.a = 1f;
         this.pos_y = 0;
         this.pos_x = 0;
+        this.setSize(1);
         this.letters = new ArrayList<>();
     }
 
@@ -56,24 +59,43 @@ public class AGText {
     private void write(){
 
 
-        if(this.letters.size() > 0) {
             for (int i = 0; i < this.letters.size(); i++) {
                 this.letters.get(i).clearLetter();
+
             }
 
             this.letters.clear();
-        }
 
+
+        AGLetter last_letter = null;
+        int space = 0;
         for(int i = 0; i < this.text.length(); i++){
 
+
+            if(last_letter != null) {
+                space += last_letter.pixel_size;
+            }
+
             AGLetter letter = new AGLetter(this.scene, this.cod_imagem);
+            letter.setSize(this.size);
             letter.setText(this.text.toLowerCase().charAt(i)+"");
             letter.setTextColor(this.r, this.g, this.b, this.a);
-            letter.setPosXY((int) this.pos_x + (i * 24), (int) this.pos_y);
+            letter.setPosXY((int) this.pos_x + space, (int) this.pos_y);
             letter.write();
+            this.letters.add(letter);
+
+            last_letter = letter;
 
         }
 
+    }
+
+    public float getSize() {
+        return size;
+    }
+
+    public void setSize(float size) {
+        this.size = size;
     }
 
     private class AGLetter {
@@ -87,6 +109,7 @@ public class AGText {
         private int pos_x;
         private int pos_y;
         private float size;
+        public int pixel_size = 0;
 
         public AGLetter(AGScene scene, int cod_imagem){
 
@@ -97,7 +120,7 @@ public class AGText {
             this.g = 0;
             this.b = 0;
             this.a = 0;
-            this.setSize(10);
+            this.setSize(0);
             this.setPosX(0);
             this.setPosY(0);
             this.setText("");
@@ -105,7 +128,7 @@ public class AGText {
         }
 
         public void clearLetter(){
-            if(this.lst_pixels.size() > 0){
+            if(!this.lst_pixels.isEmpty()){
                 for(int i = 0 ; i < this.lst_pixels.size(); i++){
 
                     AGSprite spt = this.lst_pixels.get(i);
@@ -139,6 +162,15 @@ public class AGText {
                 int max_x = letter[0].length;
                 int max_y = letter.length;
 
+                int sum_pixel = 0;
+                this.pixel_size = (int) (this.size * max_x);
+                /*
+                if( ((5*max_x) % 2 == 0) && (max_x >= 1) ){
+                    this.pixel_size = (int) (this.size * max_x);
+                }else {
+                    this.pixel_size = (int) ((this.size * max_x) - 1);
+                }
+                */
                 //percorre as linhas e colunas do array da letra
                 for(int j = max_y - 1; j >= 0; j--){
 
@@ -150,17 +182,23 @@ public class AGText {
                             this.lst_pixels.add(this.pixel);
                             AGSprite spt;
                             spt = this.scene.createSprite(this.cod_image, 1, 1);
-                            //spt.setScreenProportional((int) this.size);
-                            spt.vrPosition.setX(this.pos_x + (spt.getSpriteWidth() * k));
-                            spt.vrPosition.setY(this.pos_y - (spt.getSpriteHeight() * j));
-                            spt.setColor(this.r, this.g, this.b, this.a);
+                            spt.setPixelScaleSize(this.size);
+                            spt.vrPosition.setX(this.pos_x + (k * this.size * spt.getSpriteWidth())/ 2);
+                            spt.vrPosition.setY(this.pos_y - (j * this.size * spt.getSpriteHeight())/ 2);
+                            if(this.text.toLowerCase().charAt(i) == ' '){
+                                spt.setColor(this.r, this.g, this.b, 0f);
+                            } else {
+                                spt.setColor(this.r, this.g, this.b, this.a);
+                            }
                             this.lst_pixels.add(spt);
+                            sum_pixel = (int) spt.getSpriteWidth();
 
                         }
 
                     }
 
                 }
+                this.pixel_size*= (sum_pixel/2) + 0.5f;
 
             }
 
@@ -323,6 +361,8 @@ public class AGText {
 
                 case 'g':
                     arr_letter = new int[][]{
+                            {0, 0, 0, 0, 0},
+                            {0, 0, 0, 0, 0},
                             {0, 1, 1, 0, 1},
                             {1, 0, 0, 1, 1},
                             {1, 0, 0, 0, 1},
@@ -331,9 +371,6 @@ public class AGText {
                             {0, 1, 1, 0, 1},
                             {0, 0, 0, 0, 1},
                             {1, 1, 1, 1, 0},
-                            {0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
-
                     };
                     break;
                 case 'h':
@@ -352,58 +389,58 @@ public class AGText {
                     break;
                 case 'i':
                     arr_letter = new int[][]{
-                            {1, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
+                            {1},
+                            {0},
+                            {1},
+                            {1},
+                            {1},
+                            {1},
+                            {1},
+                            {1},
+                            {0},
+                            {0},
                     };
                     break;
                 case 'j':
                     arr_letter = new int[][]{
-                            {0, 1, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
-                            {0, 1, 0, 0, 0},
-                            {0, 1, 0, 0, 0},
-                            {0, 1, 0, 0, 0},
-                            {0, 1, 0, 0, 0},
-                            {0, 1, 0, 0, 0},
-                            {0, 1, 0, 0, 0},
-                            {0, 1, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
+                            {0, 1},
+                            {0, 0},
+                            {0, 1},
+                            {0, 1},
+                            {0, 1},
+                            {0, 1},
+                            {0, 1},
+                            {0, 1},
+                            {0, 1},
+                            {1, 0},
                     };
                     break;
                 case 'k':
                     arr_letter = new int[][]{
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 1, 0},
-                            {1, 0, 1, 0, 0},
-                            {1, 1, 0, 0, 0},
-                            {1, 0, 1, 0, 0},
-                            {1, 0, 1, 0, 0},
-                            {1, 0, 0, 1, 0},
-                            {0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
+                            {1, 0, 0, 0},
+                            {1, 0, 0, 0},
+                            {1, 0, 0, 1},
+                            {1, 0, 1, 0},
+                            {1, 1, 0, 0},
+                            {1, 0, 1, 0},
+                            {1, 0, 1, 0},
+                            {1, 0, 0, 1},
+                            {0, 0, 0, 0},
+                            {0, 0, 0, 0},
                     };
                     break;
                 case 'l':
                     arr_letter = new int[][]{
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
+                            {1},
+                            {1},
+                            {1},
+                            {1},
+                            {1},
+                            {1},
+                            {1},
+                            {1},
+                            {0},
+                            {0},
                     };
                     break;
                 case 'm':
@@ -450,6 +487,8 @@ public class AGText {
                     break;
                 case 'p':
                     arr_letter = new int[][]{
+                            {0, 0, 0, 0, 0},
+                            {0, 0, 0, 0, 0},
                             {1, 0, 1, 1, 0},
                             {1, 1, 0, 0, 1},
                             {1, 0, 0, 0, 1},
@@ -458,12 +497,12 @@ public class AGText {
                             {1, 0, 1, 1, 0},
                             {1, 0, 0, 0, 0},
                             {1, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
                     };
                     break;
                 case 'q':
                     arr_letter = new int[][]{
+                            {0, 0, 0, 0, 0},
+                            {0, 0, 0, 0, 0},
                             {0, 1, 1, 0, 1},
                             {1, 0, 0, 1, 1},
                             {1, 0, 0, 0, 1},
@@ -472,22 +511,20 @@ public class AGText {
                             {0, 1, 1, 0, 1},
                             {0, 0, 0, 0, 1},
                             {0, 0, 0, 0, 1},
-                            {0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
                     };
                     break;
                 case 'r':
                     arr_letter = new int[][]{
-                            {0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
-                            {1, 0, 1, 0, 0},
-                            {1, 1, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
+                            {0, 0, 0},
+                            {0, 0, 0},
+                            {1, 0, 1},
+                            {1, 1, 0},
+                            {1, 0, 0},
+                            {1, 0, 0},
+                            {1, 0, 0},
+                            {1, 0, 0},
+                            {0, 0, 0},
+                            {0, 0, 0},
                     };
                     break;
                 case 's':
@@ -506,16 +543,16 @@ public class AGText {
                     break;
                 case 't':
                     arr_letter = new int[][]{
-                            {0, 1, 0, 0, 0},
-                            {0, 1, 0, 0, 0},
-                            {1, 1, 1, 0, 0},
-                            {0, 1, 0, 0, 0},
-                            {0, 1, 0, 0, 0},
-                            {0, 1, 0, 0, 0},
-                            {0, 1, 0, 0, 0},
-                            {0, 1, 1, 0, 0},
-                            {0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
+                            {0, 1, 0},
+                            {0, 1, 0},
+                            {1, 1, 1},
+                            {0, 1, 0},
+                            {0, 1, 0},
+                            {0, 1, 0},
+                            {0, 1, 0},
+                            {0, 1, 1},
+                            {0, 0, 0},
+                            {0, 0, 0},
                     };
                     break;
                 case 'u':
@@ -576,6 +613,8 @@ public class AGText {
                     break;
                 case 'y':
                     arr_letter = new int[][]{
+                            {0, 0, 0, 0, 0},
+                            {0, 0, 0, 0, 0},
                             {1, 0, 0, 0, 1},
                             {1, 0, 0, 0, 1},
                             {0, 1, 0, 1, 0},
@@ -584,8 +623,6 @@ public class AGText {
                             {0, 0, 1, 0, 0},
                             {0, 0, 1, 0, 0},
                             {0, 1, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
                     };
                     break;
                 case 'z':
@@ -620,16 +657,16 @@ public class AGText {
 
                 case '1':
                     arr_letter = new int[][]{
-                            {0, 0, 1, 0, 0},
-                            {0, 1, 1, 0, 0},
-                            {1, 0, 1, 0, 0},
-                            {0, 0, 1, 0, 0},
-                            {0, 0, 1, 0, 0},
-                            {0, 0, 1, 0, 0},
-                            {0, 0, 1, 0, 0},
-                            {0, 0, 1, 0, 0},
-                            {0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0},
+                            {0, 0, 1},
+                            {0, 1, 1},
+                            {1, 0, 1},
+                            {0, 0, 1},
+                            {0, 0, 1},
+                            {0, 0, 1},
+                            {0, 0, 1},
+                            {0, 0, 1},
+                            {0, 0, 0},
+                            {0, 0, 0},
                     };
                     break;
 
@@ -781,6 +818,22 @@ public class AGText {
                             {0},
                             {0},
                     };
+                    break;
+
+                case ' ':
+                    arr_letter = new int[][]{
+                            {0, 0, 1},
+                            {0, 0, 0},
+                            {0, 0, 0},
+                            {0, 0, 0},
+                            {0, 0, 0},
+                            {0, 0, 0},
+                            {0, 0, 0},
+                            {0, 0, 0},
+                            {0, 0, 0},
+                            {0, 0, 0},
+                    };
+
                     break;
 /*
             case '.':

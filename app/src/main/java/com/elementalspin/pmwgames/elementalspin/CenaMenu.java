@@ -23,6 +23,8 @@ public class CenaMenu extends AGScene {
 
     private List<AGSprite> flores = new ArrayList<AGSprite>();
     private AGSprite flor = null;
+    private AGText txt = null;
+    private int count = 0;
 
     private float velocidade_flor_x = 2.5f;
     private float velocidade_flor_y = 3f;
@@ -39,17 +41,8 @@ public class CenaMenu extends AGScene {
     @Override
     public void init() {
 
-//        //apenas teste de funcionamento
-//        this.bg = createSprite(R.drawable.star_field_test, 1, 1);
-//        this.bg.setScreenPercent(200, 140);
-//        this.bg.vrPosition.setX(AGScreenManager.iScreenWidth / 2);
-//        this.bg.vrPosition.setY(AGScreenManager.iScreenHeight / 2);
-
         AGSoundManager.vrMusic.loadMusic("the_great.mp3", true);
         AGSoundManager.vrMusic.play();
-
-//        codigoSom = AGSoundManager.vrSoundEffects.loadSoundEffect("toc.wav");
-
 
         //fundo
         background = createSprite(R.mipmap.backgroud, 1, 1);
@@ -88,10 +81,15 @@ public class CenaMenu extends AGScene {
         play_button.vrPosition.setXY(AGScreenManager.iScreenWidth / 2, AGScreenManager.iScreenHeight / 4f);
         play_button.addAnimation(12, true, 0, 24);
 
-        AGText txt = new AGText(this, R.drawable.pixel);
+
+        //instancia o texto
+        txt = new AGText(this, R.drawable.pixel);
+        //posição de onde o texto ficará
         txt.setTextPosXY(100, 200);
-        txt.setTextColor(1, 1, 1, 1);
-        txt.setText("oi jujuba");
+        //cor do texto
+        txt.setTextColor(1f, 1f, 1f, 1f);
+        //tamanho do texto
+        txt.setSize(4f);
 
 
     }
@@ -137,6 +135,9 @@ public class CenaMenu extends AGScene {
             }
 
         }
+        this.count += 1;
+        txt.setText(String.valueOf(this.count) );
+
     }
 
     private void nova_flor()
